@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head></h:head>
+<h:body id="body">
+	<h:form id="form">
+	
+		<p:ajaxStatus onstart="PF('dialogLoading').show();" 
+			oncomplete="PF('dialogLoading').hide();"/>
+			
+		<p:dialog appendTo="body" closable="false" resizable="false"
+			responsive="true" modal="true" id="dialogLoading"
+			widgetVar="dialogLoading">
+			<p:outputLabel value="CARREGANDO"/>
+		</p:dialog>
+		
+		<p:remoteCommand autoRun="true" process="@this"
+			action="#{testeBean.init}"/>
+	
+		<pe:layout fullPage="true" id="layout">
+			<pe:layoutPane position="center" id="layoutPaneCenter">
+				<b:container>
+					<b:panel title="Uniouve - Ger&ecirc;nciador de Ouvidoria">
+						<b:row>
+							<b:column>
+								<p:outputLabel value="Nome:" for="inputTextNoAreaInstitucional"/>
+							</b:column>
+							<b:column>
+								<b:inputText value="#{testeBean.areaInstitucional.no_area_institucional}"
+									required="true" requiredMessage="#{msg['dados.necessarios']}"
+									id="inputTextNoAreaInstitucional"/>
+								<p:message for="inputTextNoAreaInstitucional"/>
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column>
+								<p:commandButton process="@form" partialSubmit="true"
+									action="#{testeBean.salvar}" update="@form"/>
+							</b:column>
+						</b:row>
+					</b:panel>
+				</b:container>
+			</pe:layoutPane>
+		</pe:layout>
+	</h:form>
+</h:body>
+</html>
